@@ -1,7 +1,7 @@
 # Requirements: TickTick Lite
 
 ## 1. Giới thiệu Project
-Xây dựng một ứng dụng quản lý công việc cá nhân (To-do List) tinh gọn, kết hợp giao diện lịch trình (Calendar) tương tự Google Calendar để tối ưu hóa việc quản lý thời gian trên di động. Ứng dụng hỗ trợ đồng bộ hóa dữ liệu đám mây thông qua MongoDB Atlas.
+Xây dựng một ứng dụng quản lý công việc cá nhân (To-do List) tinh gọn, tập trung vào trải nghiệm người dùng cục bộ (Local-first), kết hợp giao diện lịch trình (Calendar) tương tự Google Calendar để tối ưu hóa việc quản lý thời gian trên di động.
 
 ## 2. Các Tính năng Chính (Core Features)
 
@@ -20,10 +20,10 @@ Xây dựng một ứng dụng quản lý công việc cá nhân (To-do List) ti
 *   **Đồng bộ Task:** Mọi task có set thời gian cụ thể sẽ tự động xuất hiện trên lịch.
 *   **Thao tác nhanh:** Chạm vào khoảng trống trên lịch để tạo nhanh task vào khung giờ đó.
 
-### C. Đồng bộ hóa & Người dùng (Cloud Sync)
-*   **Tài khoản:** Đăng ký/Đăng nhập để lưu trữ dữ liệu.
-*   **Đồng bộ Cloud:** Tự động đồng bộ dữ liệu giữa thiết bị di động và Server (MongoDB Atlas).
-*   **Chế độ Offline:** Cho phép làm việc khi không có mạng và tự động sync khi có kết nối trở lại.
+### C. Lưu trữ Dữ liệu (Local Storage)
+*   **Database cục bộ:** Sử dụng SQLite (Room Database) để lưu trữ toàn bộ dữ liệu trên thiết bị.
+*   **Tốc độ:** Truy cập dữ liệu tức thì, không phụ thuộc vào kết nối mạng.
+*   **Bảo mật:** Dữ liệu nằm hoàn toàn trên thiết bị của người dùng.
 
 ## 3. Giao diện Người dùng (UI/UX) - Design System
 *   **Typography (Phông chữ):** Sử dụng bộ font **Geomanist** cao cấp:
@@ -38,34 +38,30 @@ Xây dựng một ứng dụng quản lý công việc cá nhân (To-do List) ti
 ## 4. Công nghệ Đề xuất (Tech Stack)
 *   **Ngôn ngữ:** Kotlin.
 *   **UI Framework:** Jetpack Compose (Modern Toolkit).
-*   **Local Cache:** Room Database (Lưu trữ tạm thời khi offline).
-*   **Remote Database:** **MongoDB Atlas** (Lưu trữ chính trên Server).
-*   **API & Networking:** Retrofit hoặc Ktor Client (Giao tiếp RESTful API).
-*   **Backend Interface:** Node.js/Express hoặc Kotlin Ktor (Làm trung gian giữa Android và MongoDB).
-*   **Architecture:** MVVM (Model - View - ViewModel).
+*   **Local Database:** **Room Database** (Lưu trữ chính).
+*   **Architecture:** MVVM (Model - View - ViewModel) + Clean Architecture.
 *   **Dependency Injection:** Hilt.
 *   **Async Processing:** Kotlin Coroutines & Flow.
 
 ## 5. Dữ liệu (Data Model - Task)
 ```kotlin
 data class Task(
-    val id: String,             // ID từ MongoDB (_id)
-    val userId: String,         // Liên kết với người dùng
+    val id: Int = 0,            // Primary Key tự tăng
     val title: String,
     val note: String?,
     val dueDate: Long?,         // Timestamp ngày hết hạn
     val startTime: Long?,       // Timestamp bắt đầu (cho Calendar)
     val endTime: Long?,         // Timestamp kết thúc (cho Calendar)
     val priority: Priority,     // HIGH, MEDIUM, LOW, NONE
-    val categoryId: String,
+    val categoryId: Int?,       // Foreign Key đến Category
     val isCompleted: Boolean = false,
-    val updatedAt: Long         // Dùng để kiểm tra đồng bộ
+    val createdAt: Long = System.currentTimeMillis()
 )
 ```
 
 ## 6. Lộ trình Phát triển (Roadmap)
-1.  **Phase 1:** Thiết lập cấu trúc Project, Backend API kết nối MongoDB Atlas.
-2.  **Phase 2:** Xây dựng tính năng CRUD Task cơ bản và đồng bộ hóa Room-Server.
-3.  **Phase 3:** Xây dựng giao diện Calendar View (Vertical Timeline).
-4.  **Phase 4:** Tích hợp xác thực người dùng (Auth) và Notifications.
-5.  **Phase 5:** Tối ưu hóa UI/UX và xử lý xung đột dữ liệu (Conflict Resolution).
+1.  **Phase 1:** Thiết lập cấu trúc Project Android và Cài đặt Room Database.
+2.  **Phase 2:** Xây dựng tính năng CRUD Task với Room.
+3.  **Phase 3:** Thiết kế UI/UX (Fonts, Icons, Themes) và Navigation.
+4.  **Phase 4:** Xây dựng giao diện List View và Calendar View (Vertical Timeline).
+5.  **Phase 5:** Tối ưu hóa tính năng (Notifications, Search) và Hoàn thiện.
