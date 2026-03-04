@@ -17,15 +17,19 @@ Bảng theo dõi tiến độ xây dựng ứng dụng sử dụng Room Database
 ---
 
 ## 🎨 Phase 2: UI/UX & Tài nguyên (Assets)
-- [ ] **Typography & Fonts:**
-    - [ ] Import font chữ: **Geomanist-Regular.ttf** và **Geomanist-Medium.ttf** vào thư mục `res/font`.
-    - [ ] Định nghĩa `Type.kt` (FontFamily Geomanist).
-- [ ] **Colors & Theme:**
-    - [ ] Định nghĩa Palette màu (Blue primary, Priority colors).
-    - [ ] Cấu hình Light/Dark Mode.
+- [x] **Typography & Fonts:**
+    - [x] Import font chữ: **Geomanist-Regular.ttf** và **Geomanist-Medium.ttf** vào thư mục `res/font`.
+    - [x] Định nghĩa `Type.kt` (FontFamily Geomanist).
+- [x] **Colors & Theme:**
+    - [x] Định nghĩa Palette màu (Blue primary, Priority colors).
+    - [x] Cấu hình Light/Dark Mode.
 - [ ] **Assets & Icons:**
-    - [ ] Tích hợp Google Material Icons.
-    - [ ] Chuẩn bị Logo app.
+    - [x] Cài đặt Material Icons Extended dependency.
+    - [ ] Tích hợp hệ thống Icon theo tài liệu [compose_icons_assets.md](compose_icons_assets.md):
+        - [ ] Sidebar Navigation Icons.
+        - [ ] Lists & Filters Icons.
+        - [ ] Task List & Detail Icons.
+    - [ ] Chuẩn bị Logo app (Adaptive Icon).
 
 ---
 
